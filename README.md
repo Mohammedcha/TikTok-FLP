@@ -1,4 +1,4 @@
-<img width="150px" src="https://www.re-skinning.com/img/logo.png" align="right" />
+<img width="150px" src="https://avatars.githubusercontent.com/u/40530012?v=4" align="right" />
 
 # Tik Tok Followers Landing Page [![Re-skinning](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://re-skinning.com)
 > By Mohammed Cha & Re-Skinning Grp
@@ -16,7 +16,4 @@ You can change your CPA link by opening the <code>processing_request.php</code> 
 
 ## DEMO
 
-- [ DEMO ](https://re-skinning.com/tikflp) - Free Tik Tok Followers Landing Page
-
-
-<img src="https://www.re-skinning.com/tikflp/430b242c87402c5d1dcd5e93c1efd16d.png"/>
+<img src="https://i.imgur.com/SBHXleM.png"/>
