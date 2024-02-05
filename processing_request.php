@@ -1,5 +1,5 @@
 
-<?php $cpalink= "https://re-skinning.com" ?>
+<?php $cpalink= "https://landingpageskull.com/" ?>
 
 <!-- ================================================================= -->
 <!-- ================================================================= -->
@@ -12,7 +12,7 @@
 				<div class="profile-form-wrapper col-sm-12">
 					<?php	
 						$tik_user = $user = isset($_GET['username']) ? $_GET['username'] : "null";
-						$ytbdata = 'https://brainans.com/user/'.$tik_user;
+						$ytbdata = 'https://countik.com/tiktok-analytics/user/'.$tik_user;
 						$url = file_get_contents($ytbdata);
 						$dom = new DOMDocument();
 						libxml_use_internal_errors(true);
@@ -20,15 +20,15 @@
 						libxml_clear_errors();
 						$xpath = new DOMXpath($dom);
 						$values = array();
-							$full_name = $xpath->query("//div[@class='user__title']/h4");
+							$full_name = $xpath->query("//p[@class='nickname']");
 							foreach($full_name as $value) {
 								$full_name = $values[] = trim($value->textContent);
 							}
-							$user_name = $xpath->query("//div[@class='user__title']/a/h1");
+							$user_name = $xpath->query("//div[@class='username']/h2");
 							foreach($user_name as $value) {
 								$user_name = $values[] = trim($value->textContent);
 							}
-							$followers = $xpath->query("//ul[@class='list']/li[@class='list__item'][2]/strong");
+							$followers = $xpath->query("//*[@id='__layout']/section/section/section[2]/div/div[1]/div/div[1]/p");
 							if (!empty($followers)) {
 								foreach($followers as $value) {
 									$followers = $values[] = trim($value->textContent);
@@ -39,13 +39,14 @@
 										$followers = str_replace('k', '', $followers);
 										$followers *= 1000;	
 									}else{
+                                        $followers = str_replace(',', '', $followers);
 										$followers = $followers;
 									}
 								}	
 							}else{
 								$followers = '0';
 							}
-							$following = $xpath->query("//ul[@class='list']/li[@class='list__item'][3]/strong");
+							$following = $xpath->query("//*[@id='__layout']/section/section/section[2]/div/div[1]/div/div[4]/p");
 							if (!empty($following)) {
 								foreach($following as $value) {
 									$following = $values[] = trim($value->textContent);
@@ -54,18 +55,20 @@
 							}else{
 								$following = '0';
 							}							
-							$videos = $xpath->query("//li[@class='list__item'][1]/strong");
+							$videos = $xpath->query("//*[@id='__layout']/section/section/section[2]/div/div[1]/div/div[3]/p");
 							foreach($videos as $value) {
 								$video = $values[] = $value->textContent;
+                                $video = str_replace(',', '', $video);
 							}
-							$likes = $xpath->query("//li[@class='list__item'][4]/strong");
+							$likes = $xpath->query("//*[@id='__layout']/section/section/section[2]/div/div[1]/div/div[2]/p");
 							foreach($likes as $value) {
 								$likes = $values[] = $value->textContent;
+                                $likes = str_replace(',', '', $likes);
 							}
-							$image = $xpath->query("//div[@class='col-md-3 col-4 my-3']/div[@class='user__img']/@style");
-							foreach($image as $value) {
-								$image = $values[] = $value->textContent;
-							}
+							$images = $xpath->query("//*[@id='__layout']/section/section/section[1]/div/div/div[1]/div[1]/img");
+                            foreach ($images as $image) {
+                                $image = $image->getAttribute('src'); 
+                            }
 					// ================================================================= //
 					// ================================================================= //
 					// =============== By MCh CPA 2021 : Re-skinning GRP =============== //
@@ -127,8 +130,8 @@
 										<div class="profile-img-wrapper col-xs-3">
 											<div class="flip-container">
 												<div class="card">
-													<div class="profile-picture-img front img-responsive" style="<?php echo $image; ?> background-size: 115px 115px;"></div>
-													<div class="profile-picture-img back img-responsive" style="<?php echo $image; ?> background-size: 115px 115px;"></div>
+													<img class="profile-picture-img front img-responsive" src="<?php echo $image; ?>" style="background-size: 115px 115px;"/>
+													<img class="profile-picture-img back img-responsive" src="<?php echo $image; ?>" style="background-size: 115px 115px;"/>
 												</div>
 											</div>							
 										</div>
@@ -192,7 +195,7 @@
 											<strong><span id="console-notice-followers-value"></span> followers</strong> to TikTok account 
 											<strong><span id="console-notice-account"><?php echo $user_name; ?></span></strong>
 										</p>
-										<span class="img-responsive console-notice-reski" style="<?php echo $image; ?>; background-size: 80px 80px; width:80px; height:80px;" ></span>
+										<img class="img-responsive console-notice-reski" src="<?php echo $image; ?>" style="background-size: 80px 80px; width:80px; height:80px;" />
 										<p>This will increase the amount of followers to <strong><span id="console-notice-followers-new-value"></span></strong></p>
 									</div>
 									<div class="console-notice-button-wrapper">
@@ -238,7 +241,7 @@
 												</div>
 												<div id="console-new-followers">
 													<span id="console-new-followers-label">followers:</span>
-													<span class="console-profile-picture-img img-responsive" style="<?php echo $image; ?>; background-size: 45px 45px; width:50px; height:50px;" ></span>
+													<img class="console-profile-picture-img img-responsive" src="<?php echo $image; ?>" style="background-size: 45px 45px; width:50px; height:50px;" />
 													<span id="console-new-followers-value"><?php $followers; ?></span>
 												</div>
 												<span class="console-message">Loading generator files...</span>
